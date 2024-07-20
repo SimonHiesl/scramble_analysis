@@ -15,6 +15,7 @@ include_directories(include)
 set(SOURCES
     src/main.cc
     src/cube.cc
+    src/turns.cc
 )
 
 # Add executable

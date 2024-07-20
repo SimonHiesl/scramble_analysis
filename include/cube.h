@@ -1,7 +1,6 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#include <iostream>
 #include <array>
 #include <string>
 
@@ -16,6 +15,9 @@ class Cube {
         // Method for printing the current cube state in an understandable format
         void print_cube() const;
 
+        // Method for printing the current scramble to stdout
+        void print_scramble() const;
+
         // Method for scrambling a cube with a given scramble
         void scramble_cube(const std::string& scramble);
 
@@ -23,15 +25,19 @@ class Cube {
         std::string get_scramble() const;
 
         // Method for retrieving the current cube state
-        std::array<unsigned short, 54> get_cube() const;
+        std::array<unsigned short, 54> get_state() const;
+
+        // Method for setting the current cube state
+        void set_state(const std::array<unsigned short, 54>& new_state);
+
+        // Method for checking if the cube is solved
+        bool is_solved() const;
     private:
         // Saving the initial scramble in the scrmable object
         std::string scramble;
 
         // Cube representation through a array (fixed length) called state
         std::array<unsigned short, 54> state;
-
-        // Turns
 };
 
 #endif // CUBE_H
