@@ -34,9 +34,9 @@ class Cube {
         bool is_solved() const;
     private:
         // Saving the initial scramble in the scrmable object
-        std::string scramble;
+        std::string scramble = "";
 
-        // Cube representation through a array (fixed length) called state
+        // Cube representation through an array (fixed length) called state
         std::array<unsigned short, 54> state;
 };
 

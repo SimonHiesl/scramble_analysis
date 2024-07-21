@@ -5,10 +5,10 @@
 Cube::Cube() {
     // Corners:
     // 0 = ULB, 1 = URB, 2 = URF, 3 = ULF,
-    // 4 = LUB, 5 = LUF, ...
+    // 4 = LUB, 5 = LUF, ... (U, L, F, R, B, D)
     // Edges:
     // 24 = UB, 25 = UR, 26 = UF, 27 = UL,
-    // 28 = LU, 29 = LF, ...
+    // 28 = LU, 29 = LF, ... (U, L, F, R, B, D)
     // Centers:
     // 50 = white, 51 = orange, ...
     state = {
