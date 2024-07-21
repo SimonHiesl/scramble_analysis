@@ -33,7 +33,7 @@ class Cube {
         // Method for checking if the cube is solved
         bool is_solved() const;
     private:
-        // Saving the initial scramble in the scrmable object
+        // Saving the initial scramble in the scramble object
         std::string scramble = "";
 
         // Cube representation through an array (fixed length) called state

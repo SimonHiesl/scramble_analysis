@@ -1,13 +1,20 @@
 #include "../include/cube.h"
 #include "../include/turns.h"
-#include <iostream>
+#include <fstream>
 
 int main() {
-    for (int i = 0; i <= 5; ++i) {
-        Cube test_cube{};
-        Turns::turn_d_prime(test_cube);
-        std::cout << test_cube.is_solved() << std::endl;
-        test_cube.print_cube();
+    // Open the input and output files:
+    std::ifstream inputFile("../data/set_1.txt");
+    /* std::ofstream outputFile("../data/result.txt"); */
+    // Read each scramble from the input line
+    std::string line;
+    while (std::getline(inputFile, line)) {
+        Cube cube{line};
+        /* cube.print_cube(); */
+        /* outputFile << line << std::endl; */
     }
+    // Close the files
+    inputFile.close();
+    /* outputFile.close(); */
     return 0;
 }

@@ -1,5 +1,9 @@
 #include "../include/cube.h"
+#include "../include/turns.h"
 #include <iostream>
+#include <vector>
+#include <sstream>
+#include <unordered_map>
 
 // Default constructor: Initializes the solved state
 Cube::Cube() {
@@ -71,7 +75,39 @@ void Cube::print_scramble() const {
 
 // Scrambler of the cube
 void Cube::scramble_cube(const std::string& scramble) {
-
+    // Extracting the moves from the scramble string
+    std::vector<std::string> moves;
+    std::istringstream stream(scramble);
+    std::string move;
+    while (stream >> move) {
+        moves.push_back(move);
+    }
+    // Static map of the possible moves and the corresponing pointer to the function
+    static const std::unordered_map<std::string, void(*)(Cube&)> move_map = {
+        {"U", &Turns::turn_u},
+        {"U'", &Turns::turn_u_prime},
+        {"U2", &Turns::turn_u2},
+        {"L", &Turns::turn_l},
+        {"L'", &Turns::turn_l_prime},
+        {"L2", &Turns::turn_l2},
+        {"F", &Turns::turn_f},
+        {"F'", &Turns::turn_f_prime},
+        {"F2", &Turns::turn_f2},
+        {"R", &Turns::turn_r},
+        {"R'", &Turns::turn_r_prime},
+        {"R2", &Turns::turn_r2},
+        {"B", &Turns::turn_b},
+        {"B'", &Turns::turn_b_prime},
+        {"B2", &Turns::turn_b2},
+        {"D", &Turns::turn_d},
+        {"D'", &Turns::turn_d_prime},
+        {"D2", &Turns::turn_d2}
+    };
+    // Application of the moves
+    for (const auto& current_move : moves) {
+        auto it = move_map.find(current_move);
+        it->second(*this);
+    }
 }
 
 // Checking if the cube is solved
