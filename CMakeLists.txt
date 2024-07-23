@@ -16,6 +16,7 @@ set(SOURCES
     src/main.cc
     src/cube.cc
     src/turns.cc
+    src/tracing.cc
 )
 
 # Add executable

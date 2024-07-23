@@ -73,6 +73,13 @@ void Cube::print_scramble() const {
     std::cout << scramble << std::endl;
 }
 
+void Cube::print_state() const {
+    for (unsigned short elem : state) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+}
+
 // Scrambler of the cube
 void Cube::scramble_cube(const std::string& scramble) {
     // Extracting the moves from the scramble string
