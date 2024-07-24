@@ -1,8 +1,7 @@
 #include "../include/tracing.h"
 #include <algorithm>
-#include <iostream>
 
-std::vector<unsigned short> Tracing::trace_corners(const Cube& cube) {
+std::vector<unsigned short> Tracing::trace_corners(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     static constexpr size_t BUFFER = 2; // UFR
     // Bool array: ABCDUVWX
@@ -67,14 +66,27 @@ std::vector<unsigned short> Tracing::trace_corners(const Cube& cube) {
         current_target = next_target;
     }
     unsigned short number_of_targets = targets.size();
+    cube.set_parity(number_of_targets);
     return {number_of_targets, twists.first, twists.second, solved};
     /* return targets; */
 }
 
 std::vector<unsigned short> Tracing::trace_edges(const Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
-    // Bool array: ABCDJLRTUVWX
+    if (cube.get_parity()) {
+        auto it25 = std::find(state.begin(), state.end(), 25);
+        size_t pos25 = std::distance(state.begin(), it25);
+        auto it26 = std::find(state.begin(), state.end(), 26);
+        size_t pos26 = std::distance(state.begin(), it26);
+        auto it32 = std::find(state.begin(), state.end(), 32);
+        size_t pos32 = std::distance(state.begin(), it32);
+        auto it36 = std::find(state.begin(), state.end(), 36);
+        size_t pos36 = std::distance(state.begin(), it36);
+        std::swap(state[pos25], state[pos26]);
+        std::swap(state[pos32], state[pos36]);
+    }
     static constexpr size_t BUFFER = 26; // UF
+    // Bool array: ABCDJLRTUVWX
     std::array<bool, 12> edges_done = {
         false, false, false, false, false, false, false, false, false, false, false, false
     };
@@ -121,71 +133,6 @@ std::vector<unsigned short> Tracing::trace_edges(const Cube& cube) {
             }
         } else { // No cycle break
             next_target = state[current_target];
-            edges_done[target_to_piece_lookup[next_target - 24]] = true;
-            if (target_to_piece_lookup[next_target - 24] != target_to_piece_lookup[BUFFER - 24]) {
-                targets.push_back(next_target);
-            }
-        }
-        current_target = next_target;
-    }
-    unsigned short number_of_targets = targets.size();
-    return {number_of_targets, flips, solved};
-    /* return targets; */
-}
-
-std::vector<unsigned short> Tracing::trace_edges_parity(const Cube& cube) {
-    std::array<unsigned short, 54> state = cube.get_state();
-    static constexpr size_t BUFFER = 26; // UF
-    // Bool array: ABCDJLRTUVWX
-    std::array<bool, 12> edges_done = {
-        false, false, false, false, false, false, false, false, false, false, false, false
-    };
-    edges_done[BUFFER - 24] = true;
-    static constexpr std::array<unsigned short, 24> target_to_parity_lookup = {
-        24, 26, 25, 27, 28, 29, 30, 31, 36, 33, 34, 35, 32, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47
-    };
-    static constexpr std::array<unsigned short, 24> target_to_piece_lookup = {
-        0, 1, 2, 3, 3, 5, 11, 6, 2, 4, 8, 5, 1, 7, 9, 4, 0, 6, 10, 7, 8, 9, 10, 11
-    };
-    static constexpr std::array<unsigned short, 12> piece_to_target_lookup = {
-        24, 25, 26, 27, 33, 35, 41, 43, 44, 45, 46, 47
-    };
-    static constexpr std::array<unsigned short, 11> edges = {
-        24, 25, 27, 33, 35, 41, 43, 44, 45, 46, 47
-    };
-    unsigned short flips = 0;
-    unsigned short solved = 0;
-    for (unsigned short edge : edges) {
-        if (target_to_piece_lookup[target_to_parity_lookup[state[edge] - 24] - 24] == target_to_piece_lookup[edge - 24]) {
-            if (target_to_parity_lookup[state[edge] - 24] == edge) {
-                ++solved;
-            } else {
-                ++flips;
-            }
-            edges_done[target_to_piece_lookup[edge - 24]] = true;
-        }
-    }
-    size_t current_target = BUFFER;
-    std::vector<unsigned short> targets;
-    unsigned short next_target = target_to_parity_lookup[state[current_target] - 24];
-    unsigned short break_position = 12;
-    while (true) {
-        if (target_to_piece_lookup[next_target - 24] == target_to_piece_lookup[BUFFER - 24] ||
-            target_to_piece_lookup[next_target - 24] == break_position) { // Cycle break
-            auto it = std::find(edges_done.begin(), edges_done.end(), false);
-            int index = (it != edges_done.end()) ? std::distance(edges_done.begin(), it) : -1;
-            if (index == -1) { // Every piece is in the correct spot
-                break;
-            } else { // Next cycle break target
-                break_position = index;
-                current_target = piece_to_target_lookup[index];
-                next_target = target_to_parity_lookup[state[current_target] - 24];
-                targets.push_back(current_target);
-                targets.push_back(next_target);
-                edges_done[target_to_piece_lookup[next_target - 24]] = true;
-            }
-        } else { // No cycle break
-            next_target = target_to_parity_lookup[state[current_target] - 24];
             edges_done[target_to_piece_lookup[next_target - 24]] = true;
             if (target_to_piece_lookup[next_target - 24] != target_to_piece_lookup[BUFFER - 24]) {
                 targets.push_back(next_target);

@@ -41,12 +41,21 @@ class Cube {
 
         // Method for checking if the cube is solved
         bool is_solved() const;
+
+        // Method for setting the parity of the cube
+        void set_parity(const int& corner_targets);
+
+        // Method for returning the prity of the cube
+        bool get_parity() const;
     private:
         // Saving the initial scramble in the scramble object
         std::string scramble = "";
 
         // Cube representation through an array (fixed length) called state
         std::array<unsigned short, 54> state;
+
+        // Parity
+        bool parity;
 };
 
 #endif // CUBE_H

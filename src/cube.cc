@@ -48,6 +48,15 @@ std::array<unsigned short, 54> Cube::get_state() const {
     return state;
 }
 
+/* // Returns a string of the state for writing into a txt file */
+/* std::string Cube::output_state() const { */
+/*     std::string output = ""; */
+/*     for (unsigned short elem : state) { */
+/*         output.push_back(elem); */
+/*     } */
+/*     return output; */
+/* } */
+
 // Setter function for the state of the cube
 void Cube::set_state(const std::array<unsigned short, 54>& new_state) {
     state = new_state;
@@ -128,4 +137,14 @@ bool Cube::is_solved() const {
         51, 52, 53
     };
     return state == solved_state;
+}
+
+// Setting the parity of the cube
+void Cube::set_parity(const int& corner_targets) {
+    parity = (corner_targets % 2 != 0);
+}
+
+// Getter function for the parity of the cube
+bool Cube::get_parity() const {
+    return parity;
 }

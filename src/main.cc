@@ -1,5 +1,4 @@
 #include "../include/cube.h"
-#include "../include/turns.h"
 #include "../include/tracing.h"
 #include <fstream>
 #include <iostream>
@@ -29,42 +28,13 @@ int get_algs(const std::vector<unsigned short>& corner_targets, const std::vecto
     return algs;
 }
 
-/* int main() { */
-/*     constexpr std::array<char, 24> letterpair_lookup = { */
-/*         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', */
-/*         'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X' */
-/*     }; */
-/*     std::ifstream inputFile("../data/edge.txt"); */
-/*     /1* std::ofstream outputFile("../data/result.txt"); *1/ */
-/*     std::string line; */
-/*     while (std::getline(inputFile, line)) { */
-/*         Cube cube{line}; */
-/*         std::vector<unsigned short> corner_targets = Tracing::trace_corners(cube); */
-/*         std::vector<unsigned short> edge_targets; */
-/*         edge_targets = Tracing::trace_edges_parity(cube); */
-/*         for (unsigned short target : corner_targets) { */
-/*             std::cout << letterpair_lookup[target] << " "; */
-/*         } */
-/*         std::cout << "\n"; */
-/*         for (unsigned short target : edge_targets) { */
-/*             std::cout << letterpair_lookup[target - 24] << " "; */
-/*         } */
-/*         std::cout << "\n"; */
-/*     } */
-/*     inputFile.close(); */
-/*     /1* outputFile.close(); *1/ */
-/*     return 0; */
-/* } */
-
 int main() {
     constexpr std::array<char, 24> letterpair_lookup = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
         'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X'
     };
     std::ifstream inputFile("../data/set_01.txt");
-    /* std::ofstream outputFile("../data/result.txt"); */
     std::array<int, 4> results = {0, 0, 0, 0};
-    std::string line;
     std::vector<int> flips(12, 0);
     std::vector<int> solved_edges(12, 0);
     std::vector<int> twists(8, 0);
@@ -72,15 +42,12 @@ int main() {
     long number_edge_targets = 0;
     long number_corner_targets = 0;
     std::vector<int> number_algs(20, 0);
+    std::string line;
     while (std::getline(inputFile, line)) {
         Cube cube{line};
+        // Corner tracing has to be executed before tracing edges in order to set the parity correctly
         std::vector<unsigned short> corner_targets = Tracing::trace_corners(cube);
-        std::vector<unsigned short> edge_targets;
-        if (corner_targets[0] % 2 == 0) {
-            edge_targets = Tracing::trace_edges(cube);
-        } else {
-            edge_targets = Tracing::trace_edges_parity(cube);
-        }
+        std::vector<unsigned short> edge_targets = Tracing::trace_edges(cube);
         ++flips[edge_targets[1]];
         ++twists[corner_targets[1]+corner_targets[2]];
         number_corner_targets += corner_targets[0];
@@ -99,7 +66,6 @@ int main() {
             }
             std::cout << "\n";
         }
-        /* outputFile << line << std::endl; */
     }
     print_vector(flips);
     print_vector(twists);
@@ -110,6 +76,5 @@ int main() {
     print_vector(number_algs);
     print_average(number_algs);
     inputFile.close();
-    /* outputFile.close(); */
     return 0;
 }
