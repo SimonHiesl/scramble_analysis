@@ -1,6 +1,7 @@
 #include "../include/turns.h"
 #include <algorithm>
 
+// Definition of a U turn
 void Turns::turn_u(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -33,6 +34,7 @@ void Turns::turn_u(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a U2 turn
 void Turns::turn_u2(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -50,6 +52,7 @@ void Turns::turn_u2(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a U' turn
 void Turns::turn_u_prime(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -82,6 +85,7 @@ void Turns::turn_u_prime(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a L turn
 void Turns::turn_l(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -114,6 +118,7 @@ void Turns::turn_l(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a L2 turn
 void Turns::turn_l2(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -131,6 +136,7 @@ void Turns::turn_l2(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a L' turn
 void Turns::turn_l_prime(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -163,6 +169,7 @@ void Turns::turn_l_prime(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a F turn
 void Turns::turn_f(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -195,6 +202,7 @@ void Turns::turn_f(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a F2 turn
 void Turns::turn_f2(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -212,6 +220,7 @@ void Turns::turn_f2(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a F' turn
 void Turns::turn_f_prime(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -244,6 +253,7 @@ void Turns::turn_f_prime(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a R turn
 void Turns::turn_r(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -276,6 +286,7 @@ void Turns::turn_r(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a R2 turn
 void Turns::turn_r2(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -293,6 +304,7 @@ void Turns::turn_r2(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a R' turn
 void Turns::turn_r_prime(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -325,6 +337,7 @@ void Turns::turn_r_prime(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a B turn
 void Turns::turn_b(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -357,6 +370,7 @@ void Turns::turn_b(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a B2 turn
 void Turns::turn_b2(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -374,6 +388,7 @@ void Turns::turn_b2(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a B' turn
 void Turns::turn_b_prime(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -406,6 +421,7 @@ void Turns::turn_b_prime(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a D turn
 void Turns::turn_d(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -438,6 +454,7 @@ void Turns::turn_d(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a D2 turn
 void Turns::turn_d2(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners
@@ -455,6 +472,7 @@ void Turns::turn_d2(Cube& cube) {
     cube.set_state(state);
 }
 
+// Definition of a D' turn
 void Turns::turn_d_prime(Cube& cube) {
     std::array<unsigned short, 54> state = cube.get_state();
     // Corners

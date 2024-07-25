@@ -1,6 +1,6 @@
 # Generating Scramble
 
-For the random states scramble, the [min2phase](https://github.com/lilborgo/min2phaseCXX) algorithm was used.
+For the random state scrambles, the [min2phase](https://github.com/lilborgo/min2phaseCXX) algorithm was used.
 
 ### Usage:
 

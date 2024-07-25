@@ -1,5 +1,7 @@
 #include "../include/cube.h"
 #include "../include/turns.h"
+#include "../include/tracing.h"
+
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -38,33 +40,9 @@ Cube::Cube(const std::string& init_scramble) : scramble{init_scramble} {
     scramble_cube(scramble);
 }
 
-// Getter function for the scramble
-std::string Cube::get_scramble() const {
-    return scramble;
-}
-
-// Getter function for the state array
-std::array<unsigned short, 54> Cube::get_state() const {
-    return state;
-}
-
-/* // Returns a string of the state for writing into a txt file */
-/* std::string Cube::output_state() const { */
-/*     std::string output = ""; */
-/*     for (unsigned short elem : state) { */
-/*         output.push_back(elem); */
-/*     } */
-/*     return output; */
-/* } */
-
-// Setter function for the state of the cube
-void Cube::set_state(const std::array<unsigned short, 54>& new_state) {
-    state = new_state;
-}
-
 // Visualization of the current cube state
 void Cube::print_cube() const {
-    const std::array<char, 54> colors = {
+    static constexpr std::array<char, 54> colors = {
         'W', 'W', 'W', 'W', 'O', 'O', 'O', 'O', 'G', 'G', 'G', 'G', 
         'R', 'R', 'R', 'R', 'B', 'B', 'B', 'B', 'Y', 'Y', 'Y', 'Y',
         'W', 'W', 'W', 'W', 'O', 'O', 'O', 'O', 'G', 'G', 'G', 'G',
@@ -82,9 +60,30 @@ void Cube::print_scramble() const {
     std::cout << scramble << std::endl;
 }
 
+// Prints the current state in Letterpairs
 void Cube::print_state() const {
     for (unsigned short elem : state) {
         std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+}
+
+// Prints the current state in Letterpairs
+void Cube::print_memo() {
+    static constexpr std::array<char, 24> letterpair_lookup = {
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+        'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X'
+    };
+    std::vector<unsigned short> corner_targets = Tracing::trace_corners(*this, true);
+    std::vector<unsigned short> edge_targets = Tracing::trace_edges(*this, true);
+    std::cout << "Corners: " << '\n';
+    for (unsigned short target : corner_targets) {
+        std::cout << letterpair_lookup[target] << " ";
+    }
+    std::cout << '\n';
+    std::cout << "Edges: " << '\n';
+    for (unsigned short target : edge_targets) {
+        std::cout << letterpair_lookup[target - 24] << " ";
     }
     std::cout << std::endl;
 }
@@ -124,6 +123,21 @@ void Cube::scramble_cube(const std::string& scramble) {
         auto it = move_map.find(current_move);
         it->second(*this);
     }
+}
+
+// Getter function for the scramble
+std::string Cube::get_scramble() const {
+    return scramble;
+}
+
+// Getter function for the state array
+std::array<unsigned short, 54> Cube::get_state() const {
+    return state;
+}
+
+// Setter function for the state of the cube
+void Cube::set_state(const std::array<unsigned short, 54>& new_state) {
+    state = new_state;
 }
 
 // Checking if the cube is solved

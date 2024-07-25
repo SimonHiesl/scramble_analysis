@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define the starting and ending set numbers
-start=20
-end=21
+start=46
+end=50
 
 # Loop through the set numbers
 for ((i=$start; i<=$end; i++))

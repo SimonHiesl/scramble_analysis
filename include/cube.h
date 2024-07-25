@@ -20,6 +20,9 @@ class Cube {
 
         // Method for printing the current state to stdout
         void print_state() const;
+        
+        // Method for printing the basic 3-Style memo
+        void print_memo();
 
         // Method for scrambling a cube with a given scramble
         void scramble_cube(const std::string& scramble);
@@ -29,12 +32,6 @@ class Cube {
 
         // Method for retrieving the current cube state
         std::array<unsigned short, 54> get_state() const;
-
-        // Method for retrieving the corners done array
-        std::array<bool, 8> get_corners_done() const;
-
-        // Method for retrieving the edges done array
-        std::array<bool, 12> get_edges_done() const;
 
         // Method for setting the current cube state
         void set_state(const std::array<unsigned short, 54>& new_state);

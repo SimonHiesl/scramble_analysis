@@ -17,6 +17,7 @@ set(SOURCES
     src/cube.cc
     src/turns.cc
     src/tracing.cc
+    src/analysis.cc
 )
 
 # Add executable

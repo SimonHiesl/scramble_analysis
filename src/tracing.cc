@@ -1,7 +1,8 @@
 #include "../include/tracing.h"
 #include <algorithm>
 
-std::vector<unsigned short> Tracing::trace_corners(Cube& cube) {
+// Traces the corners from UFR and sets the parity accordingly
+std::vector<unsigned short> Tracing::trace_corners(Cube& cube, bool return_targets) {
     std::array<unsigned short, 54> state = cube.get_state();
     static constexpr size_t BUFFER = 2; // UFR
     // Bool array: ABCDUVWX
@@ -67,11 +68,15 @@ std::vector<unsigned short> Tracing::trace_corners(Cube& cube) {
     }
     unsigned short number_of_targets = targets.size();
     cube.set_parity(number_of_targets);
-    return {number_of_targets, twists.first, twists.second, solved};
-    /* return targets; */
+    if (return_targets) {
+        return targets;
+    } else {
+        return {number_of_targets, twists.first, twists.second, solved};
+    }
 }
 
-std::vector<unsigned short> Tracing::trace_edges(const Cube& cube) {
+// Traces the edges from UF
+std::vector<unsigned short> Tracing::trace_edges(const Cube& cube, bool return_targets) {
     std::array<unsigned short, 54> state = cube.get_state();
     if (cube.get_parity()) {
         auto it25 = std::find(state.begin(), state.end(), 25);
@@ -141,6 +146,9 @@ std::vector<unsigned short> Tracing::trace_edges(const Cube& cube) {
         current_target = next_target;
     }
     unsigned short number_of_targets = targets.size();
-    return {number_of_targets, flips, solved};
-    /* return targets; */
+    if (return_targets) {
+        return targets;
+    } else {
+        return {number_of_targets, flips, solved};
+    }
 }

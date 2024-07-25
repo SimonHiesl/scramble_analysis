@@ -1,4 +1,4 @@
 build/
 data/*.txt
 data/scramble
-data/*.cc
+results/
