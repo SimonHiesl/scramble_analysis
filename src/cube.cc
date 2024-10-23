@@ -60,7 +60,7 @@ void Cube::print_scramble() const {
     std::cout << scramble << std::endl;
 }
 
-// Prints the current state in Letterpairs
+// Prints the current state
 void Cube::print_state() const {
     for (unsigned short elem : state) {
         std::cout << elem << " ";

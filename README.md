@@ -11,3 +11,7 @@ make
 ```
 
 To recompile just run the `make` command in the build directory.
+
+# License
+
+This software is distributed on GPLv3.0, more information available in [LICENSE.md](LICENSE.md).
